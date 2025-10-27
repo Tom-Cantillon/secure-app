@@ -1,0 +1,26 @@
+.home {
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 0 12px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.error {
+  color: #b00020;
+  margin-top: 8px;
+}
+
+.status {
+  color: #0a66c2;
+  margin-top: 8px;
+}

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './shared/auth/login.component/login.component';
-import { HomeComponent } from './home.component';
+import { HomeComponent } from './home.component/home.component';
 import { AdminComponent } from './admin/admin.component/admin.component';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { adminGuard } from './admin/admin.guard';

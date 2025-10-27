@@ -1,0 +1,26 @@
+<section class="home">
+  <h1>Accueil</h1>
+
+  @if (auth.isLoggedIn()) {
+    <div class="user-info">
+      <p><strong>Connecté:</strong> {{ auth.currentUser()?.login }} (rôle: {{ auth.currentUser()?.role }})</p>
+      <button type="button" (click)="onLogoutClick($event)" [disabled]="auth.isLoading()">Se déconnecter</button>
+    </div>
+  } @else {
+    <p>Personne n'est connecté.</p>
+    <a routerLink="/login">Aller à la page de connexion</a>
+  }
+
+  @if (auth.isLoading()) {
+    <div class="status" role="status" aria-live="polite">
+      Action en cours…
+    </div>
+  }
+
+  @let err = auth.error();
+  @if (err) {
+    <div class="error" role="alert">
+      {{ err }}
+    </div>
+  }
+</section>
