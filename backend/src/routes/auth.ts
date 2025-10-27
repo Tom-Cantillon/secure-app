@@ -56,18 +56,18 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/refresh', (req, res) => {
-    const refresh = req.cookies?.refresh_token
-    if (!refresh) return res.status(401).json({ error: 'Refresh token manquant' })
-    try {
-        const decoded = jwt.verify(refresh, JWT_SECRET) as TokenPayload
-        const newAccess = createAccessToken({ id: decoded.id, role: decoded.role })
-        res.cookie('access_token', newAccess, {
-            httpOnly: true, secure: true, sameSite: 'strict', maxAge: 15 * 60 * 1000,
-        })
-    } catch {
-        res.json({ message: 'Token renouvelé' })
-        res.status(403).json({ error: 'Refresh token invalide ou expiré' })
-    }
+  const refresh = req.cookies?.refresh_token
+  if (!refresh) return res.status(401).json({ error: 'Refresh token manquant' })
+  try {
+    const decoded = jwt.verify(refresh, JWT_SECRET) as TokenPayload
+    const newAccess = createAccessToken({ id: decoded.id, role: decoded.role })
+    res.cookie('access_token', newAccess, {
+      httpOnly: true, secure: true, sameSite: 'strict', maxAge: 15 * 60 * 1000,
+    })
+    return res.json({ message: 'Token renouvelé' })
+  } catch {
+    return res.status(403).json({ error: 'Refresh token invalide ou expiré' })
+  }
 })
 
 // ------ Exemple de route accessible uniquement avec un JWT valide ------
