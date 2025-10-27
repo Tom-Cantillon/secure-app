@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => { // --- LOGIN ---
     res.cookie('refresh_token', refreshToken, { // --------------------------------- Cookies sécurisés pour le refresh token
         httpOnly: true, secure: true, sameSite: 'strict', maxAge: 7 * 24 * 60 * 60 * 1000,
     })
-    res.json({ message: 'Authentification réussie', user: { login: user.login, role: user.role } }) // connexion successful
+    res.json({ message: 'Authentification réussie', user: { id: user.id, login: user.login, role: user.role } }) // connexion successful
 })
 
 router.post('/logout', (_req, res) => { // --- LOGOUT ---
@@ -71,8 +71,14 @@ router.post('/refresh', (req, res) => {
 })
 
 // ------ Exemple de route accessible uniquement avec un JWT valide ------
-router.get('/whoami', verifyToken, (req, res) => {
-    res.json({ user: req.user })
+router.get('/whoami', verifyToken, async (req, res) => {
+  try {
+    const { rows } = await pool.query('SELECT id, login, role FROM users WHERE id = $1', [req.user!.id])
+    const user = rows[0] ?? null
+    res.json({ user }) // => { id, login, role } ou null
+  } catch (e) {
+    res.status(500).json({ error: 'Erreur serveur' })
+  }
 })
 
 export default router
