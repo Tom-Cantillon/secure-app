@@ -26,7 +26,7 @@ export class UserService {
   loadAll$(): Observable<UserDto[]> {
     this._isLoading.set(true)
     this._error.set(null)
-    return this.http.get<UserDto[]>(`${environment.apiUrl}/users`).pipe(
+    return this.http.get<UserDto[]>(`${environment.apiUrl}/users`,{ withCredentials: true }).pipe(
       tap(users => this._users.set(users ?? [])),
       catchError(err => {
         this._error.set('Impossible de charger les utilisateurs')

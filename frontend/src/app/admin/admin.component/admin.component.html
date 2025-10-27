@@ -1,1 +1,22 @@
-<p>admin.component works!</p>
+<h2>Administration — Utilisateurs</h2>
+
+@if (isLoading()) {
+  <div class="status">Chargement…</div>
+}
+
+@if (error(); as err) {
+  <div class="error">{{ err }}</div>
+}
+
+<ul>
+  @for (u of users(); track u.id) {
+    <li>
+      {{ u.id }} — {{ u.login }}
+      @if (u.role) {
+        <span>({{ u.role }})</span>
+      }
+    </li>
+  } @empty {
+    <p>Pas d'utilisateurs</p>
+  }
+</ul>

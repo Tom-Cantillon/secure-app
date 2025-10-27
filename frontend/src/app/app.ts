@@ -10,7 +10,7 @@ import { AuthService } from './shared/auth/auth.service'
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class AppComponent implements OnInit {
+export class App implements OnInit {
   readonly auth = inject(AuthService)
 
   ngOnInit(): void {

@@ -3,14 +3,20 @@ import { UserService } from '../../users/user'
 
 @Component({
   selector: 'app-admin',
+  standalone: true,
   imports: [],
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-  private readonly userService = inject(UserService);
-  readonly users = this.userService.users;
-  // Charge la liste à l’arrivée sur la page
+loadError() {
+throw new Error('Method not implemented.')
+}
+  private readonly userService = inject(UserService)
+  readonly users = this.userService.users
+  readonly isLoading = this.userService.isLoading
+  readonly error = this.userService.error
+
   constructor() {
     effect(() => this.userService.loadAll())
   }
