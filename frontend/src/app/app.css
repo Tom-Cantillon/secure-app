@@ -1,0 +1,15 @@
+.app-header {
+  background: #1f2328;
+  color: #fff;
+  padding: 10px 16px;
+}
+.nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.nav a { color: #fff; text-decoration: none; }
+.nav a.active { text-decoration: underline; }
+.spacer { flex: 1; }
+.app-content { padding: 16px; }
+.user-label { margin-right: 8px; }

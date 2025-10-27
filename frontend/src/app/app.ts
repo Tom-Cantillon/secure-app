@@ -1,13 +1,20 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from "./shared/auth/login.component/login.component";
+import { Component, OnInit, inject } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router'
+import { AuthService } from './shared/auth/auth.service'
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginComponent],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
-export class App {
-  protected readonly title = signal('frontend');
+export class AppComponent implements OnInit {
+  readonly auth = inject(AuthService)
+
+  ngOnInit(): void {
+    // Restaure la session (cookies httpOnly) au démarrage
+    this.auth.whoami()
+  }
 }
