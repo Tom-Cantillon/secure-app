@@ -5,7 +5,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import publicRouter from './routes/public.js'
-import { ensureAdmin } from './db/initAdmin.js'
+import { ensureDefaultUsers } from './db/initAdmin.js'
 import usersRouter from './routes/users.js'
 import authRouter from './routes/auth.js'
 import { verifyToken } from './middleware/token-management.js'
@@ -14,7 +14,7 @@ import 'dotenv/config'
 
 // Création de l’application Express
 const app = express()
-await ensureAdmin()
+await ensureDefaultUsers()
 // Ajout manuel des principaux en-têtes HTTP de sécurité
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff')
